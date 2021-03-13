@@ -52,7 +52,7 @@ while opcao <> 3
             end
         end
         
-        select opcao
+        select opcao 
             case 1 then
                 
                 [x,y] = calculaDerivada(corpoFuncao,limiteInferior,limiteSuperior)
