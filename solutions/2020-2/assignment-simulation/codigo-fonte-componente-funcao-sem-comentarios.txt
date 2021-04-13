@@ -1,0 +1,53 @@
+if u1 < 0 then
+y1 = 0
+else
+y1 = u1
+end
+
+numeroPassos = (fimPico - inicioPico)/periodoAquisicaoResultado
+
+numeroPassosRepouso = numeroPassos * 2
+
+
+if (z(3) == 0 && z(2) < numeroPassos) || (z(3) == 2 && z(2) < numeroPassosRepouso) then
+
+    z(2) = z(2) + 1
+
+elseif (z(3) == 0 && z(2) == numeroPassos) || (z(3) == 3 && z(2) == numeroPassos)
+
+    z(3) = 1
+
+    z(2) = 1
+
+    z(1) = z(1) + velocidadeDeslocamento
+
+elseif z(3) == 1 && z(2) < numeroPassos
+
+    z(1) = z(1) + velocidadeDeslocamento
+
+    z(2) = z(2) + 1
+
+elseif z(3) == 1 && z(2) == numeroPassos
+
+    z(3) = 2
+
+    z(2) = 1
+
+elseif z(3) == 2 && z(2) == numeroPassosRepouso
+
+    z(3) = 3
+
+    z(2) = 1
+
+    z(1) = z(1) - velocidadeDeslocamento
+
+elseif z(3) == 3 && z(2) < numeroPassos
+
+    z(1) = z(1) - velocidadeDeslocamento
+
+    z(2) = z(2) + 1
+end
+
+y2 = z(1)
+
+disp(z(1), 'Velocidade (m/s)', z(2), 'Contador de Passos', z(3), 'Estado da simulação (0-> início; 1-> descida; 2-> repouso; 3-> subida')
