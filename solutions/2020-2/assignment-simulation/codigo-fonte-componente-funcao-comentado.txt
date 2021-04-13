@@ -1,0 +1,116 @@
+/*
+Não insiram o código fonte abaixo no componente de função sem
+retirar todos os comentários.
+*/
+
+
+/*
+Desenha a pista da montanha russa, a qual é disponibilizada na primeira saída
+da instância do componente de função (y1).
+*/
+if u1 < 0 then
+y1 = 0
+else
+y1 = u1
+end
+
+
+/*
+Calcula o número de passos de acordo com o intervalo do pico
+e o período de aquisição do resultado definidos inicialmente no
+contexto. Pode-se estender a simulação para considerar cenários
+mais dinâmicos, onde o fimPico, inicioPico, e periodoAquisicaoResultado
+possam ser especificados como parâmetros de sistema, ou estados iniciais
+do componente de função.
+*/
+numeroPassos = (fimPico - inicioPico)/periodoAquisicaoResultado
+
+
+/*
+Calcula o número de passos em repouso onde o corpo não acumula/perde
+energia, i.e., mantém-se com a mesma velocidade do final da queda. É utilizado juntamente como o estado de repouso (z(3) = 2).
+*/
+numeroPassosRepouso = numeroPassos * 2
+
+
+/*
+(z(3) == 0 && z(2) < numeroPassos) -> condicional a validar
+a presença do estado inicial da simulação (z(3) = 0), onde o corpo está
+a ser empurrado/puxado até o pico da senóide. Nenhuma energia é
+acumulada/perdida, e a velocidade mantém-se com o valor inicial de zero (0).
+
+(z(3) == 2 && z(2) < numeroPassosRepouso) -> condicional a validar
+a presença do estado de repouso (z(3) = 2), onde o corpo não acumula/perde
+energia, i.e., mantém-se com a mesma velocidade do final da queda.
+
+*/
+if (z(3) == 0 && z(2) < numeroPassos) || (z(3) == 2 && z(2) < numeroPassosRepouso) then
+
+    z(2) = z(2) + 1
+
+/*
+
+(z(3) == 0 && z(2) == numeroPassos) -> condicional a validar a transição do estado inicial (z(3) = 0) para o estado de descida (z(3) = 1).
+
+(z(3) == 3 && z(2) == numeroPassos) -> condicional a validar a transição
+do estado de subida (z(3) = 3) para o estado de descida (z(3) = 1).
+*/
+elseif (z(3) == 0 && z(2) == numeroPassos) || (z(3) == 3 && z(2) == numeroPassos)
+
+    z(3) = 1
+
+    z(2) = 1
+
+    z(1) = z(1) + velocidadeDeslocamento
+
+/*
+z(3) == 1 && z(2) < numeroPassos -> condicional a validar a presença
+do corpo no estado de descida (z(3) = 1), a incrementar a velocidade do corpo.
+*/
+elseif z(3) == 1 && z(2) < numeroPassos
+
+    z(1) = z(1) + velocidadeDeslocamento
+
+    z(2) = z(2) + 1
+
+/*
+z(3) == 1 && z(2) == numeroPassos -> condicional a validar a transição
+do estado de descida (z(3) = 1) para o estado de repouso (z(3) = 2)
+*/
+elseif z(3) == 1 && z(2) == numeroPassos
+
+    z(3) = 2
+
+    z(2) = 1
+
+/*
+z(3) == 2 && z(2) == numeroPassosRepouso -> condicional a validar a transição
+do estado de repouso (z(3) = 2) para o estado de subida (z(3) = 3)
+*/
+elseif z(3) == 2 && z(2) == numeroPassosRepouso
+
+    z(3) = 3
+
+    z(2) = 1
+
+    z(1) = z(1) - velocidadeDeslocamento
+
+/*
+z(3) == 3 && z(2) < numeroPassos -> condicional a validar a presença do corpo
+no estado de subida (z(3) = 3), a decrementar a velocidade do corpo.
+*/
+elseif z(3) == 3 && z(2) < numeroPassos
+
+    z(1) = z(1) - velocidadeDeslocamento
+
+    z(2) = z(2) + 1
+end
+
+
+/*
+Disponibiliza a velocidade calculada do corpo na segunda saída do componente
+de função (y2).
+*/
+y2 = z(1)
+
+disp(z(1), 'Velocidade (m/s)', z(2), 'Contador de Passos', z(3), 'Estado da simulação (0-> início; 1-> descida; 2-> repouso; 3-> subida')

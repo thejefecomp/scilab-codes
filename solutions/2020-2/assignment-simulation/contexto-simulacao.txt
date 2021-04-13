@@ -1,0 +1,59 @@
+/*
+O h representa a variável magnitudeSenoide especificada na aula anterior, a representar também a altura
+do pico da senóide, a qual é utilizada como suporte para o desenho da pista da montanha russa. A variável é utilizada
+na instância do componente de geração de senóide.
+*/
+
+h = 15
+
+/*
+variável a especificar o período utilizado na aquisição dos resultados por parte da instância do componente
+de visualização de gráficos. A variável é utilizada na instância do componente de relógio.
+*/
+
+periodoAquisicaoResultado = 0.1
+
+/*
+variável a especificar o tempo de início de geração de eventos do relógio. A variável é utilizada na instância
+do componente de relógio.
+*/
+
+tempoInicioAquisicaoResultado = 0
+
+gravidade = 9.8
+
+/*
+variável a representar o valor a definir o comprimento de onda (aproximado) de um dos picos da senóide.
+*/
+
+fimPico = 3
+
+/*
+variável a representar o valor mediano (aproximado) onde o pico da senóide está representado no eixo x.
+*/
+
+inicioPico = 1.5
+
+/*
+
+variável a representar a altura da queda de cada período de aquisição de resultado, a considerar um movimento
+de queda livre sem atrito, somente influenciado pela força da gravidade.
+*/
+
+hQueda = h/((fimPico - inicioPico)/ periodoAquisicaoResultado)
+
+/*
+variável a representar o tempo de queda para cada período de aquisição de resultado, a considerar um movimento
+de queda livre sem atrito, somente influenciado pela força da gravidade.
+*/
+
+tempoQueda = sqrt(hQueda / gravidade)
+
+/*
+variável a representar a velocidade de deslocamento entre dois pontos no espaço, a utilizar um movimento de queda
+livre sem atrito, somente influenciado pela força da gravidade.
+*/
+
+velocidadeDeslocamento = tempoQueda * gravidade
+
+disp(tempoQueda,'Tempo de Queda (segundos)', velocidadeDeslocamento, 'Velocidade de Deslocamento (m/s)', hQueda, 'Altura da queda entre dois pontos da curva (metros)')
