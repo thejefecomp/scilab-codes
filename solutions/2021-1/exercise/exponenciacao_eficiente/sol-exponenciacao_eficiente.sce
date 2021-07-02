@@ -106,7 +106,7 @@ function minimoMultiplicacoes=m(k,depurar)
 
 						expoenteComplementar = 2
 
-					elseif expoenteComplementar > 1 then					
+					elseif expoenteComplementar > 3 then					
 
 						expoenteComplementar = expoenteComplementar / 2
 					end
