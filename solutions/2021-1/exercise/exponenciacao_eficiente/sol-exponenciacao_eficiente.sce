@@ -98,9 +98,17 @@ function minimoMultiplicacoes=m(k,depurar)
 				*/
 				while continuar
 
-					if expoenteComplementar > 1 then					
+					if expoenteComplementar == 2 then
 
-						expoenteComplementar = ceil(expoenteComplementar / 2)
+						expoenteComplementar = 1
+
+					elseif expoenteComplementar == 3 
+
+						expoenteComplementar = 2
+
+					elseif expoenteComplementar > 1 then					
+
+						expoenteComplementar = expoenteComplementar / 2
 					end
 
 					expoenteResultante = expoenteCorrente + expoenteComplementar
@@ -130,10 +138,11 @@ function minimoMultiplicacoes=m(k,depurar)
 endfunction
 
 
+somatorio = 0
 
 for i=1:200
 	
-	somatorio = m(i,%t)
+	somatorio = somatorio + m(i,%t)
 end
 
 mprintf('somatorio = %d', somatorio)
